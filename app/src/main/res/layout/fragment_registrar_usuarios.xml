@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.RegistrarUsuariosFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:id="@+id/primerLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Registrar usuarios"
+            android:textAlignment="center"
+            android:textSize="24dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            
+            <EditText
+                android:id="@+id/txtDocumento"
+                android:inputType="number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="Documento"
+                android:padding="20dp" />
+            <Button
+                android:id="@+id/btnFoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Foto"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/cardview_light_background"
+                />
+            
+            
+        </LinearLayout>
+    
+        <EditText
+            android:id="@+id/txtNombre"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:padding="20dp"/>
+        <EditText
+            android:id="@+id/txtProfesion"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Profesión"
+            android:padding="20dp"/>
+
+</LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgFoto"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_margin="25dp"
+        android:layout_below="@id/primerLinear"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/img_base" />
+    <Button
+        android:id="@+id/btnRegistrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Registrar"
+        android:textSize="20dp"
+        android:layout_alignParentBottom="true"
+        android:padding="20dp"/>
+
+
+</RelativeLayout>

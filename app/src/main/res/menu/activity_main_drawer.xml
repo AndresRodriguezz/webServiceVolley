@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/bienvenidaFragment3"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="@string/menu_inicio" />
+        <item
+            android:id="@+id/registrarUsuariosFragment"
+            android:icon="@android:drawable/ic_menu_add"
+            android:title="@string/menu_RegistroUsuario" />
+        <item
+            android:id="@+id/consultarUsuariosFragment"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/menu_ConsultarUsuario" />
+        <item
+            android:id="@+id/consultarListaUsuariosFragment"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/menu_ConsultarListaUsuario" />
+    </group>
+    <item android:title="Información">
+    <menu>
+        <item
+            android:id="@+id/desarrolladorFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_Desarrollador" />
+    </menu>
+</item>
+
+</menu>
+

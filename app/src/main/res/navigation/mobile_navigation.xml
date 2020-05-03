@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/bienvenidaFragment3">
+
+    <fragment
+        android:id="@+id/bienvenidaFragment3"
+        android:label="@string/app_name"
+        android:name="com.example.practicawebservice.Fragments.BienvenidaFragment"
+        tools:layout="@layout/fragment_bienvenida" />
+    <fragment
+        android:id="@+id/consultarUsuariosFragment"
+        android:name="com.example.practicawebservice.Fragments.ConsultarUsuariosFragment"
+        android:label="Consultar Usuario"
+        tools:layout="@layout/fragment_consultar_usuarios" />
+    <fragment
+        android:id="@+id/desarrolladorFragment"
+        android:name="com.example.practicawebservice.Fragments.DesarrolladorFragment"
+        android:label="Desarrollador"
+        tools:layout="@layout/fragment_desarrollador" />
+    <fragment
+        android:id="@+id/registrarUsuariosFragment"
+        android:name="com.example.practicawebservice.Fragments.RegistrarUsuariosFragment"
+        android:label="Registrar Usuario"
+        tools:layout="@layout/fragment_registrar_usuarios" />
+    <fragment
+        android:id="@+id/consultarListaUsuariosFragment"
+        android:name="com.example.practicawebservice.Fragments.ConsultarListaUsuariosFragment"
+        android:label="Lista de usuarios"
+        tools:layout="@layout/fragment_consultar_lista_usuarios" />
+</navigation>
