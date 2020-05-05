@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Path;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -246,6 +247,25 @@ public class RegistrarUsuariosFragment extends Fragment {
                 bitmap = BitmapFactory.decodeFile(path);
                 imgFoto.setImageBitmap(bitmap);
                 break;
+        }
+        bitmap = redimensionarImagen(bitmap,600,800);
+    }
+
+    private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
+        int ancho = bitmap.getWidth(); //consegumos el ancho de la imagen usado a bitmap
+        int alto = bitmap.getHeight();//Conseguimos el alto de la imagen usando a bitmap
+
+        if(ancho>anchoNuevo || alto>altoNuevo){//comparamos el ancho que obtenemos en la variable ancho con el ancho que recibimos lo mismo para alto
+            float escalaAncho = anchoNuevo/ancho;
+            float escalaAlto = altoNuevo/alto;
+
+            Matrix matrix = new Matrix();//instanciamos nuestro objeto de tipo Matrix
+            matrix.postScale(escalaAncho,escalaAlto);//accedemos al metodo postScale le pasamos los parametros creados anteriormente
+
+            return Bitmap.createBitmap(bitmap,0,0,ancho,alto,matrix,false); //Regresamos el dato ya escalado
+
+        }else{
+            return bitmap; //si la imagen no cumple con la conddcion de arriba regresamos al bitmap tal cual.
         }
     }
 
