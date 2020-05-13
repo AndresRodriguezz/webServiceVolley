@@ -43,10 +43,10 @@ public class ConsultarUsuariosFragment extends Fragment implements Response.List
     private String mParam1;
     private String mParam2;
 
-    EditText campoDocumento;
-    TextView txtNombre, txtProfesion;
-    Button btnConsultar;
-    ImageView imagenUSuario;
+   private EditText campoDocumento;
+   private TextView txtNombre, txtProfesion;
+   private Button btnConsultar;
+   private ImageView imagenUSuario;
 
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
@@ -121,14 +121,14 @@ public class ConsultarUsuariosFragment extends Fragment implements Response.List
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(),"No se pudo consultar",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),"Error al conectar",Toast.LENGTH_SHORT).show();
         Log.i("Error",error.toString());
 
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        Toast.makeText(getContext(),"Mensaje"+response,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),"Mensaje"+response,Toast.LENGTH_SHORT).show();
 
         //Se crea un paquete de entidades el cual contiene la clase Usuario donde se ponen los setter and getter para crear un obj
         // de nuestros atributos.

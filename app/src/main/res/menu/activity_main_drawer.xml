@@ -17,6 +17,11 @@
             android:icon="@android:drawable/ic_menu_search"
             android:title="@string/menu_ConsultarUsuario" />
         <item
+            android:id="@+id/consultar_Usuario_UrlFragment"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/menu_ConsultarListaUsuarioUrl" />
+
+        <item
             android:id="@+id/consultarListaUsuariosFragment"
             android:icon="@android:drawable/ic_menu_search"
             android:title="@string/menu_ConsultarListaUsuario" />

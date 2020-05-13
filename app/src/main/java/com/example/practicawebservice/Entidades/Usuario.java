@@ -10,9 +10,18 @@ public class Usuario {
     private String profesion;
     private String dato;
     private Bitmap imagen;
+    private String ruta_imagen;
 
     public String getDato() {
         return dato;
+    }
+
+    public String getRuta_imagen() {
+        return ruta_imagen;
+    }
+
+    public void setRuta_imagen(String ruta_imagen) {
+        this.ruta_imagen = ruta_imagen;
     }
 
     public void setDato(String dato) {
