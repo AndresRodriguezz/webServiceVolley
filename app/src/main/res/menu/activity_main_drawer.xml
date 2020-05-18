@@ -25,6 +25,10 @@
             android:id="@+id/consultarListaUsuariosFragment"
             android:icon="@android:drawable/ic_menu_search"
             android:title="@string/menu_ConsultarListaUsuario" />
+        <item
+            android:id="@+id/listaUsuarioImagenFragment"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/menu_ListaUsuarioImagen" />
     </group>
     <item android:title="Información">
     <menu>

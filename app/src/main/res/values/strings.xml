@@ -13,6 +13,7 @@
     <string name="menu_ConsultarListaUsuario">Consultar Lista Usuario</string>
     <string name="menu_ConsultarListaUsuarioUrl">Consultar Usuario URL</string>
     <string name="menu_Desarrollador">Desarrollador</string>
+    <string name="menu_ListaUsuarioImagen">Lista de Usuarios imagen</string>
 
     <string name="home_second">Home Second</string>
 

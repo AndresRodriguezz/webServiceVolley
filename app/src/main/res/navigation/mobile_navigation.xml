@@ -33,6 +33,11 @@
     <fragment
         android:id="@+id/consultar_Usuario_UrlFragment"
         android:name="com.example.practicawebservice.Fragments.Consultar_Usuario_UrlFragment"
-        android:label="fragment_consultar__usuario__url"
+        android:label="consultar usuario url"
         tools:layout="@layout/fragment_consultar__usuario__url" />
+    <fragment
+        android:id="@+id/listaUsuarioImagenFragment"
+        android:name="com.example.practicawebservice.Fragments.ListaUsuarioImagenFragment"
+        android:label="fragment_lista_usuario_imagen"
+        tools:layout="@layout/fragment_lista_usuario_imagen" />
 </navigation>
