@@ -108,7 +108,7 @@ public class ConsultarUsuariosFragment extends Fragment implements Response.List
     }
 
     private void consultarUsuario() {
-        String url = "http://192.168.0.9:82/EjemploBdRemota/wsJSONConsultarUsuarioImagen.php?documento="+campoDocumento.getText().toString();
+        String url = "http://192.168.0.8:82/EjemploBdRemota/wsJSONConsultarUsuarioImagen.php?documento="+campoDocumento.getText().toString();
         //Direccion de json para peticion
         url= url.replace(" ","%20");
         //se pone esta linea pra evitar que solo lea la primera palabra

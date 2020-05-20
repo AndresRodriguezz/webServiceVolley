@@ -276,7 +276,7 @@ public class RegistrarUsuariosFragment extends Fragment {
         progreso.setMessage("Cargando...");
         progreso.show();
         //Direccion que se le va a dar para hacer la peticion de los datos por JSON con las condiciones con metodo POST
-        String url = "http://192.168.0.9:82/EjemploBdRemota/wsJSONRegistroMovil.php?";
+        String url = "http://192.168.0.8:82/EjemploBdRemota/wsJSONRegistroMovil.php?";
         //Creamos un objeto de tipo StringRequest. con el new Response ya nos da la implementacion para el metodo onResponse
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override//Es el que se encarga de recibir la respeusta del webService cuando todo esta correcto

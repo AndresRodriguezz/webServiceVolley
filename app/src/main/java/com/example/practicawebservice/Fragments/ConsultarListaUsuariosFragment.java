@@ -109,7 +109,7 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
         progress = new ProgressDialog(getContext());
         progress.setMessage("Consultado...");
         progress.show();
-        String url = "http://192.168.0.9:82/EjemploBdRemota/wsJSONConsultarListaImagenes.php";
+        String url = "http://192.168.0.8:82/EjemploBdRemota/wsJSONConsultarListaImagenes.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }

@@ -119,7 +119,7 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
         pDialog =new ProgressDialog(getContext());
         pDialog.setMessage("Cargando...");
         pDialog.show();
-        String url = "http://192.168.0.9:82/EjemploBdRemota/wsJSONConsultarUsuarioUrl.php?documento="+campoDocumento.getText().toString();
+        String url = "http://192.168.0.8:82/EjemploBdRemota/wsJSONConsultarUsuarioUrl.php?documento="+campoDocumento.getText().toString();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

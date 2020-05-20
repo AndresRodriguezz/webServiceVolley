@@ -1,21 +1,41 @@
 package com.example.practicawebservice.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.practicawebservice.Entidades.Usuario;
+import com.example.practicawebservice.Entidades.UsuarioAdapter;
+import com.example.practicawebservice.Entidades.UsuariosImagenUrlAdapter;
 import com.example.practicawebservice.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ListaUsuarioImagenFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaUsuarioImagenFragment extends Fragment {
+public class ListaUsuarioImagenFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -24,6 +44,13 @@ public class ListaUsuarioImagenFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RecyclerView recyclerView;
+    ArrayList<Usuario> listaUsuarios;
+
+    ProgressDialog progress;
+    RequestQueue request;
+    JsonObjectRequest jsonObjectRequest;
 
     public ListaUsuarioImagenFragment() {
         // Required empty public constructor
@@ -60,6 +87,68 @@ public class ListaUsuarioImagenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lista_usuario_imagen, container, false);
+        View vista=inflater.inflate(R.layout.fragment_lista_usuario_imagen, container, false);
+        //Instancia de la lista de los usuarios
+        listaUsuarios = new ArrayList<>();
+
+        recyclerView = (RecyclerView)vista.findViewById(R.id.idRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        request = Volley.newRequestQueue(getContext());
+
+        cargarWebService();
+
+        return vista;
     }
+
+    private void cargarWebService() {
+        progress = new ProgressDialog(getContext());
+        progress.setMessage("Consultado...");
+        progress.show();
+        String url = "http://192.168.0.8:82/EjemploBdRemota/wsJSONConsultarListaImagenesUrl.php";
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        request.add(jsonObjectRequest);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getContext(),"No se pudo conectar",Toast.LENGTH_SHORT).show();
+        progress.hide();
+        System.out.println();
+        Log.d("Error",error.toString());
+
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        progress.hide();
+        Usuario usuario=null;
+        JSONArray json = response.optJSONArray("usuario");
+        try {
+
+            for (int i=0;i<json.length();i++){
+                usuario = new Usuario ();
+                JSONObject jsonObject = null;
+                //jsonObject = json.getJSONObject(i); se le implementa el Try catch
+                jsonObject =json.getJSONObject(i);
+
+                usuario.setDocumento(jsonObject.optInt("documento"));
+                usuario.setNombre(jsonObject.optString("nombre"));
+                usuario.setProfesion(jsonObject.optString("profesion"));
+                usuario.setRuta_imagen(jsonObject.optString("ruta_imagen"));
+                listaUsuarios.add(usuario);
+            }
+            progress.hide();
+            UsuariosImagenUrlAdapter adaptar = new UsuariosImagenUrlAdapter(listaUsuarios,getContext());
+            recyclerView.setAdapter(adaptar);
+
+        }   catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(),"No se ha podido establecer la conexion con el servidor"+""+response,Toast.LENGTH_SHORT).show();
+            progress.hide();
+        }
+
+    }
+
 }
