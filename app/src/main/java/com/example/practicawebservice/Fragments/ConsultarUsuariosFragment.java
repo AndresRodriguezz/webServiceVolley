@@ -1,5 +1,6 @@
 package com.example.practicawebservice.Fragments;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.practicawebservice.Entidades.Usuario;
 import com.example.practicawebservice.R;
@@ -43,13 +46,16 @@ public class ConsultarUsuariosFragment extends Fragment implements Response.List
     private String mParam1;
     private String mParam2;
 
-   private EditText campoDocumento;
-   private TextView txtNombre, txtProfesion;
-   private Button btnConsultar;
+   private EditText campoDocumento,txtNombre, txtProfesion;
+   private ImageButton btnConsultar;
    private ImageView imagenUSuario;
+   private  Button btnActualizar,btnEliminar;
 
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
+
+    StringRequest stringRequest;
+    Bitmap bitmap;
 
     public ConsultarUsuariosFragment() {
         // Required empty public constructor
@@ -90,10 +96,12 @@ public class ConsultarUsuariosFragment extends Fragment implements Response.List
 
 
         campoDocumento = (EditText) vista.findViewById(R.id.idCampoDocumento);
-        txtNombre = (TextView)vista.findViewById(R.id.txtNombre);
-        txtProfesion = (TextView)vista.findViewById(R.id.txtProfesion);
-        btnConsultar = (Button)vista.findViewById(R.id.btnConsultar);
+        txtNombre = (EditText) vista.findViewById(R.id.txtNombre);
+        txtProfesion = (EditText) vista.findViewById(R.id.txtProfesion);
+        btnConsultar = (ImageButton) vista.findViewById(R.id.btnConsultar);
         imagenUSuario = (ImageView)vista.findViewById(R.id.imagenId);
+        btnActualizar = (Button)vista.findViewById(R.id.btnActualizar);
+        btnEliminar = (Button)vista.findViewById(R.id.btnEliminar);
 
         request = Volley.newRequestQueue(getContext());
         btnConsultar.setOnClickListener(new View.OnClickListener() {

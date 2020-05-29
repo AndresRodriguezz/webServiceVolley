@@ -10,23 +10,27 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.practicawebservice.Entidades.Usuario;
 import com.example.practicawebservice.R;
@@ -34,6 +38,10 @@ import com.example.practicawebservice.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -53,14 +61,16 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
 
     //Variables
     ImageView imgFoto;
-    EditText campoDocumento;
-    TextView txtNombre,txtProfesion;
-    Button btnConsultar;
+    EditText campoDocumento,txtNombre,txtProfesion;
+    Button btnActualizar,btnEliminar;
+    ImageButton btnConsultar;
 
     ProgressDialog pDialog;
 
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
+    StringRequest stringRequest;
+    Bitmap bitmap;
 
     public Consultar_Usuario_UrlFragment() {
         // Required empty public constructor
@@ -99,12 +109,14 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_consultar__usuario__url, container, false);
         campoDocumento = (EditText) vista.findViewById(R.id.idCampoDocumento);
-        txtNombre = (TextView) vista.findViewById(R.id.txtNombre);
-        txtProfesion = (TextView) vista.findViewById(R.id.txtProfesion);
+        txtNombre = (EditText) vista.findViewById(R.id.txtNombre);
+        txtProfesion = (EditText) vista.findViewById(R.id.txtProfesion);
         imgFoto = (ImageView)vista.findViewById(R.id.imagenId);
         request = Volley.newRequestQueue(getContext());
 
-        btnConsultar = (Button) vista.findViewById(R.id.btnConsultar);
+        btnConsultar = (ImageButton) vista.findViewById(R.id.btnConsultar);
+        btnActualizar = (Button)vista.findViewById(R.id.btnActualizar);
+        btnEliminar = (Button)vista.findViewById(R.id.btnEliminar);
 
         btnConsultar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +124,20 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
                 consultarUsuario();
             }
         });
+        btnActualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webServiceActualizar();
+            }
+        });
+
+        btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webServiceEliminar();
+            }
+        });
+
         return vista;
     }
 
@@ -149,7 +175,7 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
                 txtNombre.setText(miUsuario.getNombre());//se consige el dato y se pone
                 txtProfesion.setText(miUsuario.getProfesion());
 
-                String urlImagen = "http://192.168.0.9:82/EjemploBdRemota/"+ miUsuario.getRuta_imagen();
+                String urlImagen = "http://192.168.0.8:82/EjemploBdRemota/"+ miUsuario.getRuta_imagen();
 
                 Toast.makeText(getContext(), "url "+urlImagen, Toast.LENGTH_SHORT).show();
 
@@ -190,5 +216,109 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
             }
         });
         request.add(imageRequest);
+    }
+
+    private void webServiceActualizar() {
+        pDialog=new ProgressDialog(getContext());
+        pDialog.setMessage("Cargando...");
+        pDialog.show();
+
+
+
+        String url="http://192.168.0.8:82/EjemploBdRemota/wsJSONUpdateMovil.php?";
+
+
+        stringRequest =new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                pDialog.hide();
+
+                if (response.trim().equalsIgnoreCase("actualiza")){
+                    // etiNombre.setText("");
+                    //  txtDocumento.setText("");
+                    //   etiProfesion.setText("");
+                    Toast.makeText(getContext(),"Se ha Actualizado con exito",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(),"No se ha Actualizado ",Toast.LENGTH_SHORT).show();
+                    Log.i("RESPUESTA: ",""+response);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),"No se ha podido conectar",Toast.LENGTH_SHORT).show();
+                pDialog.hide();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                String documento=campoDocumento.getText().toString();
+                String nombre=txtNombre.getText().toString();
+                String profesion=txtProfesion.getText().toString();
+
+                String imagen=convertirImgString(bitmap);
+
+                Map<String,String> parametros=new HashMap<>();
+                parametros.put("documento",documento);
+                parametros.put("nombre",nombre);
+                parametros.put("profesion",profesion);
+                parametros.put("imagen",imagen);
+
+                return parametros;
+            }
+        };
+        request.add(stringRequest);
+    }
+
+    private String convertirImgString(Bitmap bitmap) {
+
+        ByteArrayOutputStream array=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,array);
+        byte[] imagenByte=array.toByteArray();
+        String imagenString= Base64.encodeToString(imagenByte,Base64.DEFAULT);
+
+        return imagenString;
+    }
+
+    private void webServiceEliminar() {
+        pDialog=new ProgressDialog(getContext());
+        pDialog.setMessage("Cargando...");
+        pDialog.show();
+
+
+        String url="http://192.168.0.8:82/ejemploBDRemota/wsJSONDeleteMovil.php?documento="+campoDocumento.getText().toString();
+
+        stringRequest =new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                pDialog.hide();
+
+                if (response.trim().equalsIgnoreCase("elimina")){
+                    txtNombre.setText("");
+                    campoDocumento.setText("");
+                    txtProfesion.setText("");
+                    imgFoto.setImageResource(R.drawable.img_base);
+                    Toast.makeText(getContext(),"Se ha Eliminado con exito",Toast.LENGTH_SHORT).show();
+                }else{
+                    if (response.trim().equalsIgnoreCase("noExiste")){
+                        Toast.makeText(getContext(),"No se encuentra la persona ",Toast.LENGTH_SHORT).show();
+                        Log.i("RESPUESTA: ",""+response);
+                    }else{
+                        Toast.makeText(getContext(),"No se ha Eliminado ",Toast.LENGTH_SHORT).show();
+                        Log.i("RESPUESTA: ",""+response);
+                    }
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),"No se ha podido conectar",Toast.LENGTH_SHORT).show();
+                pDialog.hide();
+            }
+        });
+        request.add(stringRequest);
     }
 }

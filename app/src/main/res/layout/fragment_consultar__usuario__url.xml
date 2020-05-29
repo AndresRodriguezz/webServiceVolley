@@ -18,37 +18,62 @@
             android:text="Consultar usuario"
             android:textSize="28dp"
             android:layout_margin="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/idCampoDocumento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Documento"
+                android:textSize="22dp"
+                android:layout_weight="1"/>
+            <ImageButton
+                android:id="@+id/btnConsultar"
+                android:layout_width="50dp"
+                android:layout_height="49dp"
+                android:src="@drawable/ic_action_name"
+                android:background="#FF0000"
+                android:layout_marginLeft="5sp"/>
+
+
+        </LinearLayout>
+
         <EditText
-            android:id="@+id/idCampoDocumento"
+            android:id="@+id/txtNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:textSize="22dp"/>
+        <EditText
+            android:id="@+id/txtProfesion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Documento"
             android:textSize="22dp"/>
-        <TextView
-            android:id="@+id/txtNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:id="@+id/txtProfesion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="10dp"/>
+
 
     </LinearLayout>
     <Button
-        android:id="@+id/btnConsultar"
-        android:layout_width="match_parent"
+        android:id="@+id/btnActualizar"
+        android:layout_width="204dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:background="@color/colorPrimary"
-        android:text="Consultar"
+        android:text="Actualizar"
         android:textSize="20sp"/>
+    <Button
+        android:id="@+id/btnEliminar"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorPrimary"
+        android:text="Eliminar"
+        android:textSize="20sp" />
     <ImageView
         android:id="@+id/imagenId"
         android:layout_width="250dp"
@@ -56,5 +81,4 @@
         android:src="@drawable/img_base"
         android:layout_below="@id/linerLayout"
         android:layout_centerHorizontal="true"/>
-
 </RelativeLayout>
