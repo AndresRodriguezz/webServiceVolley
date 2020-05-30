@@ -1,6 +1,9 @@
 package com.example.practicawebservice.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -46,6 +50,7 @@ public class ListaUsuarioImagenFragment extends Fragment implements Response.Lis
     private String mParam2;
 
     RecyclerView recyclerView;
+    ImageView imagenSinConexion;
     ArrayList<Usuario> listaUsuarios;
 
     ProgressDialog progress;
@@ -95,9 +100,25 @@ public class ListaUsuarioImagenFragment extends Fragment implements Response.Lis
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setHasFixedSize(true);
 
+        imagenSinConexion = (ImageView)vista.findViewById(R.id.noInternet);
+        imagenSinConexion.setVisibility(View.INVISIBLE);
+
         request = Volley.newRequestQueue(getContext());
 
-        cargarWebService();
+        ConnectivityManager conn = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = conn.getActiveNetworkInfo();
+
+        if(networkInfo!= null && networkInfo.isConnected()){
+            imagenSinConexion.setVisibility(View.INVISIBLE);
+            cargarWebService();
+
+        }else {
+            imagenSinConexion.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(), "No hay conexión a internet", Toast.LENGTH_SHORT).show();
+
+        }
+
+
 
         return vista;
     }
