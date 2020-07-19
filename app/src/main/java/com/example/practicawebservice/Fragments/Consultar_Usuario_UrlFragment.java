@@ -34,6 +34,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.practicawebservice.Entidades.Usuario;
 import com.example.practicawebservice.R;
+import com.example.practicawebservice.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,7 +68,7 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
 
     ProgressDialog pDialog;
 
-    RequestQueue request;
+   // RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     StringRequest stringRequest;
     Bitmap bitmap;
@@ -112,7 +113,7 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
         txtNombre = (EditText) vista.findViewById(R.id.txtNombre);
         txtProfesion = (EditText) vista.findViewById(R.id.txtProfesion);
         imgFoto = (ImageView)vista.findViewById(R.id.imagenId);
-        request = Volley.newRequestQueue(getContext());
+       // request = Volley.newRequestQueue(getContext());
 
         btnConsultar = (ImageButton) vista.findViewById(R.id.btnConsultar);
         btnActualizar = (Button)vista.findViewById(R.id.btnActualizar);
@@ -194,7 +195,8 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
             }
         });
 
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
 
     }
 
@@ -215,7 +217,8 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
 
             }
         });
-        request.add(imageRequest);
+        //request.add(imageRequest);
+        VolleySingleton.getInstanceVolley(getContext()).addToRequestQueue(imageRequest);
     }
 
     private void webServiceActualizar() {
@@ -268,7 +271,8 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
                 return parametros;
             }
         };
-        request.add(stringRequest);
+        //request.add(stringRequest);
+        VolleySingleton.getInstanceVolley(getContext()).addToRequestQueue(stringRequest);
     }
 
     private String convertirImgString(Bitmap bitmap) {
@@ -319,6 +323,7 @@ public class Consultar_Usuario_UrlFragment extends Fragment {
                 pDialog.hide();
             }
         });
-        request.add(stringRequest);
+        //request.add(stringRequest);
+        VolleySingleton.getInstanceVolley(getContext()).addToRequestQueue(stringRequest);
     }
 }

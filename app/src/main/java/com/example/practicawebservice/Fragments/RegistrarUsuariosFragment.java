@@ -39,6 +39,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.practicawebservice.R;
+import com.example.practicawebservice.VolleySingleton;
 
 import org.json.JSONObject;
 
@@ -69,7 +70,7 @@ public class RegistrarUsuariosFragment extends Fragment {
     ImageView imgFoto;
     ProgressDialog progreso;
 
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest; //Por metodo POST ya no utilizaremos el objeto
     StringRequest stringRequest;
 
@@ -131,7 +132,7 @@ public class RegistrarUsuariosFragment extends Fragment {
         imgFoto = (ImageView) vista.findViewById(R.id.imgFoto);
 
 
-        request = Volley.newRequestQueue(getContext());
+       // request = Volley.newRequestQueue(getContext());
 
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
@@ -327,7 +328,8 @@ public class RegistrarUsuariosFragment extends Fragment {
             }
         };
         //Agregamos los datos al stringRequest
-        request.add(stringRequest);
+        //request.add(stringRequest);
+        VolleySingleton.getInstanceVolley(getContext()).addToRequestQueue(stringRequest);
     }
 
     private String convertirImgString(Bitmap bitmap) {

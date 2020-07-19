@@ -22,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.practicawebservice.Entidades.Usuario;
 import com.example.practicawebservice.Entidades.UsuarioAdapter;
 import com.example.practicawebservice.R;
+import com.example.practicawebservice.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +51,7 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
     ArrayList<Usuario> listaUsuarios;
 
     ProgressDialog progress;
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
 
@@ -96,7 +97,7 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setHasFixedSize(true);
 
-        request = Volley.newRequestQueue(getContext());
+        //request = Volley.newRequestQueue(getContext());
 
         cargarWebService();
 
@@ -111,7 +112,8 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
         progress.show();
         String url = "http://192.168.0.8:82/EjemploBdRemota/wsJSONConsultarListaImagenes.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     @Override

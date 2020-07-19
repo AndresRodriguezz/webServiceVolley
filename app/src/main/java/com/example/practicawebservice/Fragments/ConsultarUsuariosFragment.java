@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.practicawebservice.Entidades.Usuario;
 import com.example.practicawebservice.R;
+import com.example.practicawebservice.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +52,7 @@ public class ConsultarUsuariosFragment extends Fragment implements Response.List
    private ImageView imagenUSuario;
    private  Button btnActualizar,btnEliminar;
 
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
     StringRequest stringRequest;
@@ -103,7 +104,7 @@ public class ConsultarUsuariosFragment extends Fragment implements Response.List
         btnActualizar = (Button)vista.findViewById(R.id.btnActualizar);
         btnEliminar = (Button)vista.findViewById(R.id.btnEliminar);
 
-        request = Volley.newRequestQueue(getContext());
+        //request = Volley.newRequestQueue(getContext());
         btnConsultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +123,8 @@ public class ConsultarUsuariosFragment extends Fragment implements Response.List
         //se pone esta linea pra evitar que solo lea la primera palabra
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         //Se rellena la peticion
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getInstanceVolley(getContext()).addToRequestQueue(stringRequest);
         //peticion por json
     }
 

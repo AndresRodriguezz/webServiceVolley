@@ -27,6 +27,7 @@ import com.example.practicawebservice.Entidades.Usuario;
 import com.example.practicawebservice.Entidades.UsuarioAdapter;
 import com.example.practicawebservice.Entidades.UsuariosImagenUrlAdapter;
 import com.example.practicawebservice.R;
+import com.example.practicawebservice.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +55,7 @@ public class ListaUsuarioImagenFragment extends Fragment implements Response.Lis
     ArrayList<Usuario> listaUsuarios;
 
     ProgressDialog progress;
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
     public ListaUsuarioImagenFragment() {
@@ -103,7 +104,7 @@ public class ListaUsuarioImagenFragment extends Fragment implements Response.Lis
         imagenSinConexion = (ImageView)vista.findViewById(R.id.noInternet);
         imagenSinConexion.setVisibility(View.INVISIBLE);
 
-        request = Volley.newRequestQueue(getContext());
+        //request = Volley.newRequestQueue(getContext());
 
         ConnectivityManager conn = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = conn.getActiveNetworkInfo();
@@ -129,7 +130,8 @@ public class ListaUsuarioImagenFragment extends Fragment implements Response.Lis
         progress.show();
         String url = "http://192.168.0.8:82/EjemploBdRemota/wsJSONConsultarListaImagenesUrl.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     @Override
